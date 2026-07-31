@@ -10,6 +10,7 @@ private:
     int left_size;
     int right_size;
     bool is_even;
+    std::string Shape;
     ShapeBuilder shape;
 
 public:
@@ -17,5 +18,5 @@ public:
     void pyramidBuilder();
     void squareBuilder();
     void circleBuilder();
-    void displayRow(std::string row);
+    void displayShape(std::string shape);
 };

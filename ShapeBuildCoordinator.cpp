@@ -5,13 +5,15 @@
 #include "ShapeSizePrep.hpp"
 #include "ShapeBuildCoordinator.hpp"
 
+//change this so its only responsibility is for displauing
 
 
 ShapeBuildCoordinator::ShapeBuildCoordinator(int size)
     : shape_size(size),
       left_size(0),
       right_size(0),
-      is_even(false) {
+      is_even(false),
+      Shape(""), shape(Shape) {
 
     ShapeSizePrep prep(size);
 
@@ -21,52 +23,27 @@ ShapeBuildCoordinator::ShapeBuildCoordinator(int size)
     right_size = right;
     is_even = prep.isEven();
     right_size = right;
+    Shape = "";
+    
         }
     //this part is like the def __init__() in python initializing the variable shape_size to this instance of the class
     
     void ShapeBuildCoordinator::pyramidBuilder()  {
-        for (int j = 1; j <= shape_size; j ++ ){
-            
-            std::string build_left = shape.buildGeneralLeft(j,shape_size);
-            std::string build_right = shape.buildGeneralRight(j);
-            std::string row = build_left + " " + build_right;
-            displayRow(row); 
-        }
+        std::string get_pyramid = shape.buildPyramid(shape_size);
+        displayShape(get_pyramid);
+        
 
         }
     void ShapeBuildCoordinator::squareBuilder()  {
-
-        for (int row = 1; row <= shape_size; row ++){
-            std::string build_left = shape.buildGeneralLeft(left_size, left_size);
-            std::string build_right = shape.buildGeneralRight(right_size);
-            std::string rows = build_left  + build_right;
-            displayRow(rows);
-        }
+        std::string get_square = shape.buildSquare(shape_size,left_size, right_size);
+        displayShape(get_square);
             
     }
     void ShapeBuildCoordinator::circleBuilder(){
-        int height = shape_size;
-        int height_middle = height/2;
-        int width = shape_size+2;
-        int width_middle = (width/2)+1;
-    
-        for (int j = 1; j <= height; j ++){
-            if (j <=(height_middle) ){
-                //Build upper part of circle
-                auto [row, local_row]  = shape.buildCircleTop(width, width_middle, height_middle, height,is_even, j);
-                j = row;// very bad ediquite 
-                displayRow(local_row);
-            }
-            else{
-                //build lower part of cirlce
-                std::string local_row = shape.buildCircleLower(width_middle,width, j);
-                displayRow(local_row);
-                
-            }
-        }
+        std::string get_circle = shape.buildCircle(shape_size,is_even); //builds the shape -> will always recieve a fully built shape not just rows
+        displayShape(get_circle); // displays the shape -> future expandability to display the shape any way i need
+        
     }
-    void ShapeBuildCoordinator::displayRow(std::string row){
-        std::cout << row << '\n';
-
-
+    void ShapeBuildCoordinator::displayShape(std::string shape){
+        std::cout << shape;
     }
