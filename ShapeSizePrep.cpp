@@ -1,5 +1,7 @@
 #include "ShapeSizePrep.hpp"
 #include <stdexcept>
+#include <string>
+
 
 ShapeSizePrep::ShapeSizePrep(int shape)
     //This class is meant to check for invalid user inputs, verify inputs, and prep inputs before the shapes are being built
@@ -12,6 +14,7 @@ ShapeSizePrep::ShapeSizePrep(int shape)
         }
         return true;
     }
+    
     bool ShapeSizePrep::isEven() const {
         return shape_size%2 == 0;
     }

@@ -16,8 +16,7 @@ SystemCoord::SystemCoord(bool test_mode)
 
     : test_mode(test_mode) {
 }
-    std::string shape = "";
-    int size = 0;
+    
 
 bool SystemCoord::isTestMode() const {
     return test_mode;
@@ -30,17 +29,27 @@ std::pair< int, std::string> SystemCoord::userInput(){
 
 }
 
-
-
-void SystemCoord::BuildShape(std::string shape, int size){
+void SystemCoord::buildShape(std::string shape, int size){
     ShapeBuildCoordinator shape_constructor(size);
     auto shape_function = ShapeNameValidation::getShapeFunction(shape);
     shape_function(shape_constructor);
 
 }
 void SystemCoord::runSystem(){
-    auto[size, shape_name] = SystemCoord::userInput();
-    SystemCoord::BuildShape(shape_name,size);
+    int size = 0;
+    std::string shape_name = "";
+    if (test_mode == false){
+        auto[sizes, shape_names] = SystemCoord::userInput();
+        
+        size = sizes;
+        shape_name = shape_names;
+    }
+    else{
+        size = 5;
+        shape_name = "test";
+    }
+    
+    SystemCoord::buildShape(shape_name,size);
     
 }
 

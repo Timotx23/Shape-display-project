@@ -7,6 +7,8 @@
 #include <map>
 #include "ShapeBuildCoordinator.hpp"
 #include <functional>
+#include <iostream>
+
 
     std::string ShapeNameValidation::cleanedShape(std::string shape){
         std::transform(
@@ -26,6 +28,7 @@
             throw std::invalid_argument( std::string("Shape contained invalid digit: ") + letter );
             }
         }
+        
         getShapeFunction(shape_name);
         return true;
     }
@@ -40,13 +43,16 @@
             }},
             {"pyramid", [](ShapeBuildCoordinator& shape) {
                 shape.pyramidBuilder();
+            }},
+            {"test", [](ShapeBuildCoordinator& shape){
+                shape.testBuilder();
             }}
         };
         auto found = current_shapes.find(shape_name);
 
         if (found == current_shapes.end()) {
             throw std::invalid_argument(
-                "Name provided is not in current shape features"
+                "Name provided is not in current shape features " + shape_name 
             );
         }
 

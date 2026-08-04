@@ -2,15 +2,24 @@
 #include "ShapeBuilder.hpp"
 #include <string>
 
+struct ShapeParameters{
+    int shape_size = 0;
+    int left_size = 0;
+    int right_size = 0;
+    bool is_even = false;
+    
+    std::string printable = "#";//might be usefull in the future if i decide to add different printables ie more than just # 
+    std::string spacer = " "; // same here future proofing
+
+};
 
 
 class ShapeBuildCoordinator {
 private:
-    int shape_size;
-    int left_size;
-    int right_size;
-    bool is_even;
-    std::string Shape;
+    static ShapeParameters makeParameters(int size);
+    ShapeParameters parameters;
+    
+
     ShapeBuilder shape;
 
 public:
@@ -18,5 +27,6 @@ public:
     void pyramidBuilder();
     void squareBuilder();
     void circleBuilder();
-    void displayShape(std::string shape);
+    void testBuilder();
+    void displayShape(const std::string& shape) const;
 };

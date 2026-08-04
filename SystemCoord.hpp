@@ -13,7 +13,7 @@ public:
 
     bool isTestMode() const;
     std::pair< int, std::string> userInput();
-    void BuildShape(std::string shape, int size);
+    void buildShape(std::string shape, int size);
     void runSystem();
     
     

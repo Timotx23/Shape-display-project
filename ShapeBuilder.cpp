@@ -4,35 +4,32 @@
     //This class actually build the shapes row by row
 
 
-
-ShapeBuilder::ShapeBuilder(std::string shape)
-    : Shape(shape) {
-}
-   
 std::string ShapeBuilder::buildSquare(int shape_size,int left_size, int right_size){
-
+    std::string final_shape = "";
     for (int row = 1; row <= shape_size; row ++){
             std::string build_left = buildGeneralLeft(left_size, left_size);
             std::string build_right = buildGeneralRight(right_size);
             std::string current_line = build_left  + build_right;
-            Shape += current_line;
-            Shape += "\n";      
+            final_shape+= current_line;
+            final_shape += "\n";      
         }
-    return Shape;
+    return final_shape;
 }
 
 std::string ShapeBuilder::buildPyramid(int shape_size){
+    std::string final_shape = "";
     for (int j = 1; j <= shape_size; j ++ ){
             std::string build_left = buildGeneralLeft(j,shape_size);
             std::string build_right = buildGeneralRight(j);
             std::string row = build_left + build_right;
-            Shape += row;
-            Shape += "\n";
+            final_shape += row;
+            final_shape += "\n";
         }
-        return Shape;
+        return final_shape;
 
 }
 std::string ShapeBuilder::buildCircle(int shape_size, bool is_even){
+    std::string final_shape = "";
     int height = shape_size;
     int height_middle = height/2;
     int width = shape_size+2;
@@ -42,19 +39,19 @@ std::string ShapeBuilder::buildCircle(int shape_size, bool is_even){
             if (j <=(height_middle) ){
                 //Build upper part of circle
                 auto [row, local_row]  = buildCircleTop(width, width_middle, height_middle, height,is_even, j);
-                j = row;// very bad ediquite 
-                Shape += local_row;
-                Shape += "\n";
+                j = row; 
+                final_shape += local_row;
+                final_shape += "\n";
             }
             else{
                 //build lower part of cirlce
                 std::string local_row = buildCircleLower(width_middle,width, j);
-                Shape+=local_row;
-                Shape += "\n";
+                final_shape+=local_row;
+                final_shape += "\n";
                 
             }
         }
-    return Shape;
+    return final_shape;
 
 }
 
@@ -76,6 +73,7 @@ std::string ShapeBuilder::buildGeneralLeft(int row_size, int pi_size){
 
     
 std::pair<int, std::string> ShapeBuilder::buildCircleTop( int width, int width_middle, int height_middle,int height,bool is_even, int row){
+        std::string final_shape = "";
         int left = width_middle + row;
         int right = width_middle - row;
         std::string local_row = "";
@@ -93,8 +91,8 @@ std::pair<int, std::string> ShapeBuilder::buildCircleTop( int width, int width_m
                 }
             
             if (i == width && row == height_middle && is_even){
-                Shape+= local_row;
-                Shape += "\n"; 
+                final_shape= local_row;
+                final_shape += "\n"; 
                 row +=1;
 
                 }

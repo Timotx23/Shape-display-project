@@ -5,7 +5,7 @@
 #include "SystemCoord.hpp"
 
 int main(){
-    SystemCoord user(true); 
+    SystemCoord user(false); 
     user.runSystem();
     
     return 0;

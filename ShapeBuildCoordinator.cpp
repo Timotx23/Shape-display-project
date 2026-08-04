@@ -5,45 +5,55 @@
 #include "ShapeSizePrep.hpp"
 #include "ShapeBuildCoordinator.hpp"
 
-//change this so its only responsibility is for displauing
+
+//change this so its only responsibility is for validating the input (just in case it was done before but for redundency its done again), constructing the shape and in the end displaying it
+
 
 
 ShapeBuildCoordinator::ShapeBuildCoordinator(int size)
-    : shape_size(size),
-      left_size(0),
-      right_size(0),
-      is_even(false),
-      Shape(""), shape(Shape) {
-
-    ShapeSizePrep prep(size);
-
-    auto [left, right] = prep.splitEvenly();
-
-    left_size = left;
-    right_size = right;
-    is_even = prep.isEven();
-    right_size = right;
-    Shape = "";
     
-        }
-    //this part is like the def __init__() in python initializing the variable shape_size to this instance of the class
+    : parameters(makeParameters(size)){
+
+    }
+        
+    ShapeParameters ShapeBuildCoordinator::makeParameters(int size) {
+        ShapeSizePrep prep(size);
+        prep.validateSize(size);
+        auto [left, right] = prep.splitEvenly();
+        return { // order matters in here
+        size,
+        left,
+        right,
+        prep.isEven()
+    };
+    }
+    
+    
     
     void ShapeBuildCoordinator::pyramidBuilder()  {
-        std::string get_pyramid = shape.buildPyramid(shape_size);
+        std::string get_pyramid = shape.buildPyramid(parameters.shape_size);
         displayShape(get_pyramid);
-        
-
         }
+    
     void ShapeBuildCoordinator::squareBuilder()  {
-        std::string get_square = shape.buildSquare(shape_size,left_size, right_size);
-        displayShape(get_square);
-            
+        std::string get_square = shape.buildSquare(parameters.shape_size,parameters.left_size, parameters.right_size);
+        displayShape(get_square);    
     }
+    
     void ShapeBuildCoordinator::circleBuilder(){
-        std::string get_circle = shape.buildCircle(shape_size,is_even); //builds the shape -> will always recieve a fully built shape not just rows
+        std::string get_circle = shape.buildCircle(parameters.shape_size,parameters.is_even); //builds the shape -> will always recieve a fully built shape not just rows
         displayShape(get_circle); // displays the shape -> future expandability to display the shape any way i need
         
     }
-    void ShapeBuildCoordinator::displayShape(std::string shape){
-        std::cout << shape;
+    
+    void ShapeBuildCoordinator::testBuilder(){
+        squareBuilder();
+        circleBuilder();
+        pyramidBuilder();
     }
+    
+    void ShapeBuildCoordinator::displayShape(const std::string& shape) const{
+         std::cout << shape;
+}
+    
+    
